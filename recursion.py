@@ -1,11 +1,11 @@
 # Multiply all the elements in a list
 def multiply_list(l):
-    if len(l) == 1:
-        return l[0]
+    popped_elem = l.pop()
+    if len(l) == 0:
+        return popped_elem
     else:
-        return l[len(l)-1] * multiply_list(l[:-1])
+        return popped_elem * multiply_list(l)
 
-print multiply_list([1,2,3,4])
 
 # Return the factorial of n
 def factorial(n):
@@ -16,27 +16,26 @@ def factorial(n):
         total = factorial(n-1) * n
     return total
 
-print factorial(5)
 
 # Count the number of elements in the list l
 def count_list(l):
     if len(l) == 1:
         return 1
     else:
-        return count_list(l[:-1]) + 1
+        del l[-1]
+        return count_list(l) + 1
 
-print count_list([10,20,30,40,50])
 
 # Sum all of the elements in a list
 def sum_list(l):
     counter = 0
-    if len(l) == 1:
-        return l[0]
+    popped_elem = l.pop()
+    if len(l) == 0:
+        return popped_elem
     else:
-        counter = sum_list(l[:-1]) + l[-1]
+        counter = sum_list(l) + popped_elem
     return counter
 
-print sum_list([1, 2])
 
 # Reverse a list without slicing or loops
 def reverse(l):
@@ -45,18 +44,15 @@ def reverse(l):
     popped = l.pop()
     return [popped] + reverse(l)
 
-print reverse([1,2,3,4,5])
 
 # Fibonacci returns the nth fibonacci number. The nth fibonacci number is
 # defined as fib(n) = fib(n-1) + fib(n-2)
 def fibonacci(n):
-    #Come back to fill out base case
     if n == 1 or n == 0:
         return n
     else:
-        n = fibonacci(n-1) + fibonacci(n-2)
-        return n
-#it works and I want to eat small children now. Thanks, Fibonacci! :)
+        return fibonacci(n-1) + fibonacci(n-2)
+
 print fibonacci(10)
 
 # Finds the item i in the list l.... RECURSIVELY
@@ -65,39 +61,41 @@ def find(l, i):
     if popped == i:
         return popped
     elif len(l) == 0:
-        #FLAMES!!!
         return "Sorry, we have no %r" % i
     else:
         return find(l, i)
 
 
-print find([1,2,3,4,5,6,7], 'bananas')
+print find([1,2,3,4,5,6,7], '8')
 
 # Determines if a string is a palindrome
 def palindrome(some_string):
-#I have no idea how we did this, but IT WORKS!
-    some_list = some_string.split()
-    some_letter = some_list.pop()
-    if len(some_list) == 0:
+    lower_string = some_string.lower()
+    if len(lower_string) <= 1:
         return True
-    elif some_letter == some_list[0]:
-        del some_list[0]
-        palindrome(some_list)
-    else:
+    elif lower_string[-1] != lower_string[0]:
         return False
+    else:
+        return palindrome(lower_string[1:-1])
 
-print palindrome("mom")
 
 # Given the width and height of a sheet of paper, and the number of times to fold it, 
-#return the final dimensions of the sheet as a tuple. 
-#Assume that you always fold in half along the longest edge of the sheet.
+# return the final dimensions of the sheet as a tuple. 
+# Assume that you always fold in half along the longest edge of the sheet.
 def fold_paper(width, height, folds):
-    return (0, 0)
+    if folds == 0:
+        return (width, height)
+    else:
+        if width > height:
+            return fold_paper(width/2.0, height, folds - 1)
+        if width < height:
+            return fold_paper(width, height/2.0, folds - 1)
+
+print fold_paper(8, 11, 2)
 
 # Count up
 # Print all the numbers from 0 to target
 def count_up(target, n):
-    return
-    #look at factorial
-    # use another variable
-    #nap. 
+    print n
+    if n < target:
+        count_up(target, n + 1)
