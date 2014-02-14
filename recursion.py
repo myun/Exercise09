@@ -6,23 +6,52 @@ def multiply_list(l):
         return l[len(l)-1] * multiply_list(l[:-1])
 
 print multiply_list([1,2,3,4])
+
 # Return the factorial of n
 def factorial(n):
-    return 1
+    total = 1
+    if n == 1:
+        return 1
+    else:
+        total = factorial(n-1) * n
+    return total
+
+print factorial(5)
 
 # Count the number of elements in the list l
 def count_list(l):
-    return
+    if len(l) == 1:
+        return 1
+    else:
+        return count_list(l[:-1]) + 1
+
+print count_list([10,20,30,40,50])
 
 # Sum all of the elements in a list
 def sum_list(l):
-    return 0
+    counter = 0
+    if len(l) == 1:
+        return l[0]
+    else:
+        counter = sum_list(l[:-1]) + l[-1]
+    return counter
 
+print sum_list([1, 2])
 
 # Reverse a list without slicing or loops
 def reverse(l):
-    return []
+    new_list = []
+    if len(l) == 1:
+        new_list.append(l[0])
+        return new_list
+    else:
+        new_list.append(l.pop())
+        reverse(l)
+        print new_list
+    return new_list
 
+
+print reverse([1,2,3,4,5])
 # Fibonacci returns the nth fibonacci number. The nth fibonacci number is
 # defined as fib(n) = fib(n-1) + fib(n-2)
 def fibonacci(n):
